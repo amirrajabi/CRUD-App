@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import createCustomer from '../../../store/customer/actions';
+import { createCustomer } from '../../../store/customer/actions';
 
 class CustomerForm extends Component {
     constructor(props) {
@@ -23,12 +23,14 @@ class CustomerForm extends Component {
         event.preventDefault();
         if (!this.state.firstName || !this.state.lastName || !this.state.dob) return;
         const { firstName, lastName, dob } = this.state;
-        this.props.createCustomer({
-            id: this.props.customers.length + 1,
+        let id = this.props.customers.length + 1;
+        let newCustomer = {
+            id,
             firstName,
             lastName,
             dob,
-        });
+        };
+        this.props.createCustomer(newCustomer);
     };
 
     render() {
@@ -65,11 +67,11 @@ class CustomerForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    customers: state.customer.customers,
+    customers: state.customerReducer.customers,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCustomer: () => dispatch(createCustomer()),
+    createCustomer: newCustomer => dispatch(createCustomer(newCustomer)),
 });
 
 export default connect(

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import CustomerTable from '../../components/Organisms/CustomerTable';
 import CustomerForm from '../../components/Organisms/CustomerForm';
-import deleteCustomer from '../../store/customer/actions';
-import editCustomer from '../../store/customer/actions';
+import { deleteCustomer, editCustomer } from '../../store/customer/actions';
 
 import './styles.scss';
 
@@ -19,6 +18,7 @@ class CustomerPanel extends Component {
                     </div>
                     <div className="flex-large">
                         <h2>View users</h2>
+                        {console.log(this.props.customers)}
                         <CustomerTable
                             customers={this.props.customers}
                             deleteCustomer={this.props.deleteCustomer}
@@ -32,7 +32,7 @@ class CustomerPanel extends Component {
 }
 
 const mapStateToProps = state => ({
-    customers: state.customer.customers,
+    customers: state.customerReducer.customers,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -5,10 +5,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { customerReducer } from './customer/reducers';
 
 const rootReducer = combineReducers({
-    customer: customerReducer,
+    customerReducer,
 });
-
-export type AppState = ReturnType<typeof rootReducer>;
 
 export default function configureStore() {
     const middleWares = [thunkMiddleware];
