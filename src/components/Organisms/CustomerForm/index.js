@@ -31,6 +31,7 @@ class CustomerForm extends Component {
             dob,
         };
         this.props.createCustomer(newCustomer);
+        this.setState({ id: null, firstName: '', lastName: '', dob: '' });
     };
 
     render() {

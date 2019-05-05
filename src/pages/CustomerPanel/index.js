@@ -8,6 +8,16 @@ import { deleteCustomer, editCustomer } from '../../store/customer/actions';
 import './styles.scss';
 
 class CustomerPanel extends Component {
+    handleEdit = id => {
+        console.log('handleEdit: ', id);
+        this.props.editCustomer(id);
+    };
+
+    handleDelete = id => {
+        console.log('handleDelete: ', id);
+        this.props.deleteCustomer(id);
+    };
+
     render() {
         return (
             <div className="customer">
@@ -18,11 +28,10 @@ class CustomerPanel extends Component {
                     </div>
                     <div className="flex-large">
                         <h2>View users</h2>
-                        {console.log(this.props.customers)}
                         <CustomerTable
                             customers={this.props.customers}
-                            deleteCustomer={this.props.deleteCustomer}
-                            editCustomer={this.props.editCustomer}
+                            handleEdit={this.handleEdit}
+                            handleDelete={this.handleDelete}
                         />
                     </div>
                 </div>
@@ -36,8 +45,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    deleteCustomer: () => dispatch(deleteCustomer()),
-    editCustomer: () => dispatch(editCustomer()),
+    deleteCustomer: id => dispatch(deleteCustomer(id)),
+    editCustomer: id => dispatch(editCustomer(id)),
 });
 
 export default connect(

@@ -19,11 +19,11 @@ export function customerReducer(state = initialState, action) {
             };
         case DELETE_CUSTOMER:
             return {
-                customers: state.filter(customer => customer.id !== action.meta.id),
+                customers: state.customers.filter(customer => customer.id !== action.meta.id),
             };
         case EDIT_CUSTOMER:
             return {
-                customers: [...state, action.payload],
+                customers: [...state.customers, action.payload],
             };
         default:
             return state;

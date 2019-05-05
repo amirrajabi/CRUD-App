@@ -20,8 +20,18 @@ class CustomerTable extends Component {
                                 <td>{customer.lastName}</td>
                                 <td>{customer.dob}</td>
                                 <td>
-                                    <button onClick={this.props.editCustomer}>Edit</button>
-                                    <button onClick={this.props.deleteCustomer}>Delete</button>
+                                    <button
+                                        onClick={() => {
+                                            this.props.handleEdit(customer.id);
+                                        }}>
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            this.props.handleDelete(customer.id);
+                                        }}>
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))
