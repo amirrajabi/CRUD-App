@@ -9,12 +9,10 @@ import './styles.scss';
 
 class CustomerPanel extends Component {
     handleEdit = id => {
-        console.log('handleEdit: ', id);
         this.props.editCustomer(id);
     };
 
     handleDelete = id => {
-        console.log('handleDelete: ', id);
         this.props.deleteCustomer(id);
     };
 
@@ -42,6 +40,7 @@ class CustomerPanel extends Component {
 
 const mapStateToProps = state => ({
     customers: state.customerReducer.customers,
+    currentCustomer: state.customerReducer.currentCustomer,
 });
 
 const mapDispatchToProps = dispatch => ({

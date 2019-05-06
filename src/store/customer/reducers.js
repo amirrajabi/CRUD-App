@@ -6,9 +6,10 @@ const initialState = {
             firstName: 'Amir',
             lastName: 'Rajabi',
             dob: '20/09/1979',
-            id: 0,
+            id: 1,
         },
     ],
+    currentCustomer: 0,
 };
 
 export function customerReducer(state = initialState, action) {
@@ -17,13 +18,14 @@ export function customerReducer(state = initialState, action) {
             return {
                 customers: [...state.customers, action.payload],
             };
+        case EDIT_CUSTOMER:
+            return {
+                ...state,
+                currentCustomer: action.meta.id,
+            };
         case DELETE_CUSTOMER:
             return {
                 customers: state.customers.filter(customer => customer.id !== action.meta.id),
-            };
-        case EDIT_CUSTOMER:
-            return {
-                customers: [...state.customers, action.payload],
             };
         default:
             return state;
