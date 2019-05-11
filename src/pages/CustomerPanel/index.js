@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col, Badge } from 'react-bootstrap';
 
 import CustomerTable from '../../components/Organisms/CustomerTable';
 import CustomerForm from '../../components/Organisms/CustomerForm';
@@ -36,29 +37,31 @@ class CustomerPanel extends Component {
 
     render() {
         return (
-            <div className="customer">
-                <div className="flex-row">
-                    <div className="flex-small">
-                        <h2>Add user</h2>
-                        {this.state.currentCustomer.firstName !== undefined ? (
-                            <CustomerFormEdit
-                                customer={this.state.currentCustomer}
-                                edited={this.handelForm}
-                            />
-                        ) : (
-                            <CustomerForm />
-                        )}
-                    </div>
-                    <div className="flex-large">
-                        <h2>View users</h2>
-                        <CustomerTable
-                            customers={this.props.customers}
-                            handleEdit={this.handleEdit}
-                            handleDelete={this.handleDelete}
+            <Row className="customer">
+                <Col xs={12} md={4}>
+                    <h3>
+                        <Badge variant="secondary">Add user</Badge>
+                    </h3>
+                    {this.state.currentCustomer.firstName !== undefined ? (
+                        <CustomerFormEdit
+                            customer={this.state.currentCustomer}
+                            edited={this.handelForm}
                         />
-                    </div>
-                </div>
-            </div>
+                    ) : (
+                        <CustomerForm />
+                    )}
+                </Col>
+                <Col xs={12} md={8}>
+                    <h3>
+                        <Badge variant="secondary">View users</Badge>
+                    </h3>
+                    <CustomerTable
+                        customers={this.props.customers}
+                        handleEdit={this.handleEdit}
+                        handleDelete={this.handleDelete}
+                    />
+                </Col>
+            </Row>
         );
     }
 }

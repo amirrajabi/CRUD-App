@@ -5,11 +5,10 @@ const initialState = {
         {
             firstName: 'Amir',
             lastName: 'Rajabi',
-            dob: '20/09/1979',
+            dob: '20-09-1979',
             id: `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`,
         },
     ],
-    currentCustomer: 0,
 };
 
 export function customerReducer(state = initialState, action) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Form, Button } from 'react-bootstrap';
 
 import { editCustomer } from '../../../store/customer/actions';
 
@@ -36,33 +37,43 @@ class CustomerFormEdit extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>First Name</label>
-                <input
-                    type="text"
-                    name="firstName"
-                    value={this.state.firstName}
-                    onChange={this.handleInputChange}
-                />
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="firstName"
+                        value={this.state.firstName}
+                        onChange={this.handleInputChange}
+                        placeholder="First name"
+                    />
+                </Form.Group>
 
-                <label>Last Name</label>
-                <input
-                    type="text"
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={this.handleInputChange}
-                />
+                <Form.Group>
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="lastName"
+                        value={this.state.lastName}
+                        onChange={this.handleInputChange}
+                        placeholder="Last name"
+                    />
+                </Form.Group>
 
-                <label>Date Of Birth</label>
-                <input
-                    type="text"
-                    name="dob"
-                    value={this.state.dob}
-                    onChange={this.handleInputChange}
-                />
+                <Form.Group>
+                    <Form.Label>Date of birth</Form.Label>
+                    <Form.Control
+                        type="date"
+                        name="dob"
+                        value={this.state.dob}
+                        onChange={this.handleInputChange}
+                    />
+                </Form.Group>
 
-                <button>Edit Customer</button>
-            </form>
+                <Button variant="primary" type="submit">
+                    Edit Customer
+                </Button>
+            </Form>
         );
     }
 }
