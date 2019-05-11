@@ -6,7 +6,7 @@ const initialState = {
             firstName: 'Amir',
             lastName: 'Rajabi',
             dob: '20/09/1979',
-            id: 1,
+            id: `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`,
         },
     ],
     currentCustomer: 0,
@@ -20,8 +20,9 @@ export function customerReducer(state = initialState, action) {
             };
         case EDIT_CUSTOMER:
             return {
-                ...state,
-                currentCustomer: action.meta.id,
+                customers: state.customers.map(customer =>
+                    customer.id === action.payload.id ? action.payload : customer,
+                ),
             };
         case DELETE_CUSTOMER:
             return {

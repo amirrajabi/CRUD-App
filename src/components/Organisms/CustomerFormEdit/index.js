@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { createCustomer } from '../../../store/customer/actions';
+import { editCustomer } from '../../../store/customer/actions';
 
-class CustomerForm extends Component {
+class CustomerFormEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: null,
-            firstName: '',
-            lastName: '',
-            dob: '',
+            id: this.props.customer.id,
+            firstName: this.props.customer.firstName,
+            lastName: this.props.customer.lastName,
+            dob: this.props.customer.dob,
         };
     }
 
@@ -22,15 +22,15 @@ class CustomerForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         if (!this.state.firstName || !this.state.lastName || !this.state.dob) return;
-        const { firstName, lastName, dob } = this.state;
-        let id = `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`;
-        let newCustomer = {
+        const { firstName, lastName, dob, id } = this.state;
+        let editCustomer = {
             id,
             firstName,
             lastName,
             dob,
         };
-        this.props.createCustomer(newCustomer);
+        this.props.editCustomer(editCustomer);
+        this.props.edited();
         this.setState({ id: null, firstName: '', lastName: '', dob: '' });
     };
 
@@ -61,7 +61,7 @@ class CustomerForm extends Component {
                     onChange={this.handleInputChange}
                 />
 
-                <button>Add new Customer</button>
+                <button>Edit Customer</button>
             </form>
         );
     }
@@ -72,10 +72,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCustomer: newCustomer => dispatch(createCustomer(newCustomer)),
+    editCustomer: newCustomer => dispatch(editCustomer(newCustomer)),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CustomerForm);
+)(CustomerFormEdit);

@@ -22,7 +22,7 @@ class CustomerTable extends Component {
                                 <td>
                                     <button
                                         onClick={() => {
-                                            this.props.handleEdit(customer.id);
+                                            this.props.handleEdit(customer);
                                         }}>
                                         Edit
                                     </button>

@@ -3,17 +3,35 @@ import { connect } from 'react-redux';
 
 import CustomerTable from '../../components/Organisms/CustomerTable';
 import CustomerForm from '../../components/Organisms/CustomerForm';
+import CustomerFormEdit from '../../components/Organisms/CustomerFormEdit';
 import { deleteCustomer, editCustomer } from '../../store/customer/actions';
 
 import './styles.scss';
 
 class CustomerPanel extends Component {
-    handleEdit = id => {
-        this.props.editCustomer(id);
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentCustomer: {},
+        };
+    }
+
+    handleEdit = customer => {
+        this.setState({
+            currentCustomer: customer,
+        });
     };
 
     handleDelete = id => {
         this.props.deleteCustomer(id);
+    };
+
+    handelForm = () => {
+        this.setState({
+            currentCustomer: {
+                firstName: undefined,
+            },
+        });
     };
 
     render() {
@@ -22,7 +40,14 @@ class CustomerPanel extends Component {
                 <div className="flex-row">
                     <div className="flex-small">
                         <h2>Add user</h2>
-                        <CustomerForm />
+                        {this.state.currentCustomer.firstName !== undefined ? (
+                            <CustomerFormEdit
+                                customer={this.state.currentCustomer}
+                                edited={this.handelForm}
+                            />
+                        ) : (
+                            <CustomerForm />
+                        )}
                     </div>
                     <div className="flex-large">
                         <h2>View users</h2>

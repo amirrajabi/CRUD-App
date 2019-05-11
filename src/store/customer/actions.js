@@ -7,12 +7,10 @@ export const createCustomer = newCustomer => {
     };
 };
 
-export const editCustomer = id => {
+export const editCustomer = editCustomer => {
     return {
         type: EDIT_CUSTOMER,
-        meta: {
-            id,
-        },
+        payload: editCustomer,
     };
 };
 
