@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Button, Badge } from 'react-bootstrap';
+import { Form, Button, Badge, Alert } from 'react-bootstrap';
 
 import { createCustomer } from '../../store/customer/actions';
 
@@ -12,6 +12,7 @@ class CustomerForm extends Component {
             firstName: '',
             lastName: '',
             dob: '',
+            add: false,
         };
     }
 
@@ -23,7 +24,12 @@ class CustomerForm extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { firstName, lastName, dob } = this.state;
-        if (!firstName || !lastName || !dob) return;
+        if (!firstName || !lastName || !dob) {
+            this.setState({ add: true });
+            return;
+        } else {
+            this.setState({ add: false });
+        }
         let id = `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`;
         let newCustomer = {
             id,
@@ -78,6 +84,11 @@ class CustomerForm extends Component {
                         Add
                     </Button>
                 </Form>
+                {this.state.add && (
+                    <Alert variant="danger" style={{ marginTop: 20 }}>
+                        Please fill in all the fields!
+                    </Alert>
+                )}
             </Fragment>
         );
     }
