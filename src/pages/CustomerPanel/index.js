@@ -40,7 +40,7 @@ class CustomerPanel extends Component {
             <Row className="customer">
                 <Col xs={12} md={4}>
                     <h3>
-                        <Badge variant="secondary">Add user</Badge>
+                        <Badge variant="secondary">Add Customer</Badge>
                     </h3>
                     {this.state.currentCustomer.firstName !== undefined ? (
                         <CustomerFormEdit
@@ -53,7 +53,7 @@ class CustomerPanel extends Component {
                 </Col>
                 <Col xs={12} md={8}>
                     <h3>
-                        <Badge variant="secondary">View users</Badge>
+                        <Badge variant="secondary">Customers</Badge>
                     </h3>
                     <CustomerTable
                         customers={this.props.customers}
