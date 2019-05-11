@@ -11,8 +11,6 @@ const rootReducer = combineReducers({
 export default function configureStore() {
     const middleWares = [thunkMiddleware];
     const middleWareEnhancer = applyMiddleware(...middleWares);
-
     const store = createStore(rootReducer, composeWithDevTools(middleWareEnhancer));
-
     return store;
 }

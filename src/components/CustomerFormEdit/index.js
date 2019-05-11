@@ -2,16 +2,16 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Form, Button, Badge } from 'react-bootstrap';
 
-import { createCustomer } from '../../../store/customer/actions';
+import { editCustomer } from '../../store/customer/actions';
 
-class CustomerForm extends Component {
+class CustomerFormEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: null,
-            firstName: '',
-            lastName: '',
-            dob: '',
+            id: this.props.customer.id,
+            firstName: this.props.customer.firstName,
+            lastName: this.props.customer.lastName,
+            dob: this.props.customer.dob,
         };
     }
 
@@ -22,24 +22,28 @@ class CustomerForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const { firstName, lastName, dob } = this.state;
+        const { firstName, lastName, dob, id } = this.state;
         if (!firstName || !lastName || !dob) return;
-        let id = `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`;
-        let newCustomer = {
+        let editCustomer = {
             id,
             firstName,
             lastName,
             dob,
         };
-        this.props.createCustomer(newCustomer);
+        this.props.editCustomer(editCustomer);
+        this.props.edited();
         this.setState({ id: null, firstName: '', lastName: '', dob: '' });
+    };
+
+    handleCancel = () => {
+        this.props.edited();
     };
 
     render() {
         return (
             <Fragment>
                 <h3>
-                    <Badge variant="secondary">Add new customer</Badge>
+                    <Badge variant="secondary">Edit customer</Badge>
                 </h3>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
@@ -52,7 +56,6 @@ class CustomerForm extends Component {
                             placeholder="First name"
                         />
                     </Form.Group>
-
                     <Form.Group>
                         <Form.Label>Last Name</Form.Label>
                         <Form.Control
@@ -63,7 +66,6 @@ class CustomerForm extends Component {
                             placeholder="Last name"
                         />
                     </Form.Group>
-
                     <Form.Group>
                         <Form.Label>Date of birth</Form.Label>
                         <Form.Control
@@ -73,9 +75,11 @@ class CustomerForm extends Component {
                             onChange={this.handleInputChange}
                         />
                     </Form.Group>
-
-                    <Button variant="primary" type="submit">
-                        Add
+                    <Button variant="primary" type="submit" style={{ marginRight: 10 }}>
+                        Edit
+                    </Button>
+                    <Button variant="secondary" onClick={this.handleCancel}>
+                        Cancel
                     </Button>
                 </Form>
             </Fragment>
@@ -88,10 +92,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCustomer: newCustomer => dispatch(createCustomer(newCustomer)),
+    editCustomer: newCustomer => dispatch(editCustomer(newCustomer)),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(CustomerForm);
+)(CustomerFormEdit);

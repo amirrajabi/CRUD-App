@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Badge } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
-import CustomerTable from '../../components/Organisms/CustomerTable';
-import CustomerForm from '../../components/Organisms/CustomerForm';
-import CustomerFormEdit from '../../components/Organisms/CustomerFormEdit';
+import CustomerTable from '../CustomerTable';
+import CustomerForm from '../CustomerForm';
+import CustomerFormEdit from '../CustomerFormEdit';
 import { deleteCustomer, editCustomer } from '../../store/customer/actions';
 
 class CustomerPanel extends Component {
@@ -45,9 +45,6 @@ class CustomerPanel extends Component {
                     )}
                 </Col>
                 <Col xs={12} md={8}>
-                    <h3>
-                        <Badge variant="secondary">Customers</Badge>
-                    </h3>
                     <CustomerTable
                         customers={this.props.customers}
                         handleEdit={this.handleEdit}
