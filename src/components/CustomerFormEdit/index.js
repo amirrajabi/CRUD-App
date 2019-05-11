@@ -67,7 +67,7 @@ class CustomerFormEdit extends Component {
                         />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Date of birth</Form.Label>
+                        <Form.Label>Date Of Birth</Form.Label>
                         <Form.Control
                             type="date"
                             name="dob"
