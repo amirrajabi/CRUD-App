@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Table, Form, Button, Row, Col } from 'react-bootstrap';
+import { Table, Form, Modal, Button, Row, Col } from 'react-bootstrap';
 
 import { searching } from '../../../store/customer/actions';
 
@@ -10,6 +10,8 @@ class CustomerTable extends Component {
         this.state = {
             search: '',
             customers: [],
+            show: false,
+            customer: {},
         };
     }
 
@@ -28,12 +30,36 @@ class CustomerTable extends Component {
         this.setState({ [name]: value });
     };
 
+    handleClose = () => {
+        this.setState({ show: false });
+    };
+
+    handleClear = event => {
+        event.preventDefault();
+        this.setState({ search: '' });
+        this.props.searching(this.state.search, this.props.customers);
+    };
+
+    handleShow = customer => {
+        this.setState({
+            show: true,
+            customer,
+        });
+    };
+
+    handleDelete = () => {
+        this.setState({
+            show: false,
+        });
+        this.props.handleDelete(this.state.customer.id);
+    };
+
     render() {
         return (
             <Fragment>
                 <Form onSubmit={this.handleSearch}>
                     <Row>
-                        <Col sm={9}>
+                        <Col xs={6} sm={7}>
                             <Form.Group>
                                 <Form.Control
                                     type="text"
@@ -43,13 +69,19 @@ class CustomerTable extends Component {
                                     placeholder="Search..."
                                 />
                                 <Form.Text type="text" className="text-muted">
-                                    Searching in customers list.
+                                    Search in customers list.
                                 </Form.Text>
                             </Form.Group>
                         </Col>
-                        <Col sm={3}>
-                            <Button variant="secondary" type="submit">
+                        <Col xs={6} sm={5}>
+                            <Button variant="success" type="submit" style={{ marginRight: 10 }}>
                                 Search
+                            </Button>
+                            <Button
+                                variant="secondary"
+                                onClick={this.handleClear}
+                                style={{ marginRight: 10 }}>
+                                Clear
                             </Button>
                         </Col>
                     </Row>
@@ -76,14 +108,15 @@ class CustomerTable extends Component {
                                             variant="info"
                                             onClick={() => {
                                                 this.props.handleEdit(customer);
-                                            }}>
+                                            }}
+                                            style={{ marginRight: 10 }}>
                                             Edit
-                                        </Button>{' '}
+                                        </Button>
                                         <Button
                                             size="sm"
                                             variant="danger"
                                             onClick={() => {
-                                                this.props.handleDelete(customer.id);
+                                                this.handleShow(customer);
                                             }}>
                                             Delete
                                         </Button>
@@ -92,11 +125,29 @@ class CustomerTable extends Component {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={3}>No customers</td>
+                                <td colSpan={4}>No result found!</td>
                             </tr>
                         )}
                     </tbody>
                 </Table>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete customer</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {`Are you sure you want to delete ${this.state.customer.firstName} ${
+                            this.state.customer.lastName
+                        }?`}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={this.handleDelete}>
+                            Delete
+                        </Button>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Cancel
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Fragment>
         );
     }

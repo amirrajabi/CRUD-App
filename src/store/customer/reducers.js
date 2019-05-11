@@ -1,14 +1,7 @@
 import { CREATE_CUSTOMER, DELETE_CUSTOMER, EDIT_CUSTOMER, SEARCH_CUSTOMER } from './types';
 
 const initialState = {
-    customers: [
-        {
-            id: `${new Date().toLocaleTimeString()}${new Date().toLocaleDateString()}`,
-            firstName: 'Amir',
-            lastName: 'Rajabi',
-            dob: '20-09-1979',
-        },
-    ],
+    customers: [],
     customersList: [],
 };
 

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Badge } from 'react-bootstrap';
 
 import { editCustomer } from '../../../store/customer/actions';
 
@@ -22,8 +22,8 @@ class CustomerFormEdit extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        if (!this.state.firstName || !this.state.lastName || !this.state.dob) return;
         const { firstName, lastName, dob, id } = this.state;
+        if (!firstName || !lastName || !dob) return;
         let editCustomer = {
             id,
             firstName,
@@ -35,45 +35,54 @@ class CustomerFormEdit extends Component {
         this.setState({ id: null, firstName: '', lastName: '', dob: '' });
     };
 
+    handleCancel = () => {
+        this.props.edited();
+    };
+
     render() {
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group>
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="firstName"
-                        value={this.state.firstName}
-                        onChange={this.handleInputChange}
-                        placeholder="First name"
-                    />
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="lastName"
-                        value={this.state.lastName}
-                        onChange={this.handleInputChange}
-                        placeholder="Last name"
-                    />
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label>Date of birth</Form.Label>
-                    <Form.Control
-                        type="date"
-                        name="dob"
-                        value={this.state.dob}
-                        onChange={this.handleInputChange}
-                    />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                    Edit Customer
-                </Button>
-            </Form>
+            <Fragment>
+                <h3>
+                    <Badge variant="secondary">Edit customer</Badge>
+                </h3>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="firstName"
+                            value={this.state.firstName}
+                            onChange={this.handleInputChange}
+                            placeholder="First name"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="lastName"
+                            value={this.state.lastName}
+                            onChange={this.handleInputChange}
+                            placeholder="Last name"
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Date of birth</Form.Label>
+                        <Form.Control
+                            type="date"
+                            name="dob"
+                            value={this.state.dob}
+                            onChange={this.handleInputChange}
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" style={{ marginRight: 10 }}>
+                        Edit
+                    </Button>
+                    <Button variant="secondary" onClick={this.handleCancel}>
+                        Cancel
+                    </Button>
+                </Form>
+            </Fragment>
         );
     }
 }

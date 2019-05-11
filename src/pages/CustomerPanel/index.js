@@ -7,8 +7,6 @@ import CustomerForm from '../../components/Organisms/CustomerForm';
 import CustomerFormEdit from '../../components/Organisms/CustomerFormEdit';
 import { deleteCustomer, editCustomer } from '../../store/customer/actions';
 
-import './styles.scss';
-
 class CustomerPanel extends Component {
     constructor(props) {
         super(props);
@@ -36,17 +34,12 @@ class CustomerPanel extends Component {
     };
 
     render() {
+        const { currentCustomer } = this.state;
         return (
             <Row className="customer">
                 <Col xs={12} md={4}>
-                    <h3>
-                        <Badge variant="secondary">Add Customer</Badge>
-                    </h3>
-                    {this.state.currentCustomer.firstName !== undefined ? (
-                        <CustomerFormEdit
-                            customer={this.state.currentCustomer}
-                            edited={this.handelForm}
-                        />
+                    {currentCustomer.firstName !== undefined ? (
+                        <CustomerFormEdit customer={currentCustomer} edited={this.handelForm} />
                     ) : (
                         <CustomerForm />
                     )}
